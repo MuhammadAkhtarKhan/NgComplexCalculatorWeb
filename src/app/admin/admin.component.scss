@@ -1,0 +1,96 @@
+/* General container */
+#container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 8px;
+    font-size: 16px;
+}
+ table,
+    th,
+    td {
+        font-size: 20px;
+    }
+
+/* Heading */
+h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Table styling */
+table {
+   width: 100%;    
+    padding: 5px;
+}
+
+/* Table header */
+th {
+    background-color: #f2f2f2;
+    padding: 12px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Table cells */
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Vertical line between Number and Value */
+td:nth-child(1),
+th:nth-child(1) {
+    border-right: 2px solid #ccc;
+}
+
+/* Row hover effect */
+tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #container {
+        padding: 15px;
+    }
+
+    table,
+    th,
+    td {
+        font-size: 16px;
+    }
+}
+
+
+
+.row-box {
+    display: flex;
+    border: 1px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background-color: #fff;
+}
+
+.cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-right: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.cell:last-child {
+    border-right: none;
+}
+
+.bold {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}

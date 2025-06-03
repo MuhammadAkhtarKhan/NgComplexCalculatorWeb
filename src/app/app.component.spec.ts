@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'NgAdminWebComplexCalculator' title`, () => {
+  it(`should have the 'ng-admin-complex-calculator' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('NgAdminWebComplexCalculator');
+    expect(app.title).toEqual('ng-admin-complex-calculator');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, NgAdminWebComplexCalculator');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ng-admin-complex-calculator');
   });
 });

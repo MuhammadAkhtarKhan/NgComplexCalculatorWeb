@@ -1,0 +1,175 @@
+<div id="container">
+    <form [formGroup]="adminForm">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" formControlName="groupNo" id="groupNo"
+                (change)="onChangeGroupNo($event)" placeholder="Enter Group Number" aria-label="Enter Group Number"
+                aria-describedby="basic-addon2">
+
+            <div class="input-group-append">
+                <button id="search" (click)="getAdminData()" [disabled]="!adminForm.valid"
+                    class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
+
+        </div>
+        <div class="input-group mb-3" *ngIf="adminForm.get('groupNo')?.touched && adminForm.get('groupNo')?.invalid">
+            <small style="color: red;" *ngIf="adminForm.get('groupNo')?.errors?.['required']">Group number is
+                required.</small>
+        </div>
+        <div class="input-group mb-3 mt-2">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="tipMode">Select Mode:</label>
+            </div>
+            <select (change)="getAdminData()" class="custom-select" id="tipMode" formControlName="tipMode">
+                <option value="5000">5000</option>
+                <option value="7000">7000</option>
+            </select>
+        </div>
+
+    </form>
+    <div class="mb-3 mt-3">
+     
+        <table class="table table-bordered">    
+
+            <tbody>
+                <tr>
+                    <td>1 :</td>
+                    <td  [style.color]="scoreBoardTotal.one | numberColor">{{ scoreBoardTotal.one }}</td>
+                </tr>
+                <tr>
+                    <td>2 :</td>
+                    <td [style.color]="scoreBoardTotal.two | numberColor">{{ scoreBoardTotal.two }}</td>
+                </tr>
+                <tr>
+                    <td>3 :</td>
+                    <td [style.color]="scoreBoardTotal.three | numberColor">{{ scoreBoardTotal.three }}</td>
+                </tr>
+                <tr>
+                    <td>4 :</td>
+                    <td [style.color]="scoreBoardTotal.four | numberColor">{{ scoreBoardTotal.four }}</td>
+                </tr>
+                <tr>
+                    <td>5 :</td>
+                    <td [style.color]="scoreBoardTotal.five | numberColor">{{ scoreBoardTotal.five }}</td>
+                </tr>
+                <tr>
+                    <td>6 :</td>
+                    <td [style.color]="scoreBoardTotal.six | numberColor">{{ scoreBoardTotal.six }}</td>
+                </tr>
+            </tbody>
+
+
+        </table>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>在线人数: {{scoreBoardTotal.totalCurrentlyOnlineUsers}}</th>
+                    <th>落子: {{scoreBoardTotal.totalLuozi}}</th>
+                    <th>小费: {{scoreBoardTotal.totalSmallTable}}</th>
+                </tr>
+            </thead>
+        </table>
+      
+    </div>
+
+    <div class="mb-3 mt-3">
+        <table class="table table-bordered">
+            <thead>
+
+                <tr>
+                    <th>群号</th>
+                    <th>输赢</th>
+                    <th>落子</th>
+                    <th>小费</th>
+                    <th>统计</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of lstScoreBoardGrid ; track item) {
+                <tr>
+                    <td>{{ item.inputByUser }}</td>
+                    <td [style.color]="item.mainTube | numberColor">{{ item.mainTube }}</td>
+                    <td>{{ item.luozi }}</td>
+                    <td [style.color]="item.smallTable | numberColor">{{ item.smallTable }}</td>
+                    <td [style.color]="item.statistics | numberColor">{{ item.statistics }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-3 mt-3">
+        <table class="table table-bordered">
+           
+            <thead>
+                <tr>
+                    <th>小费:</th>
+                    <th [style.color]="scoreBoardTotal.totalSmallTable | numberColor">
+                        {{ scoreBoardTotal.totalSmallTable }}
+                    </th>
+                    <th>总账:</th>
+
+                    <th [style.color]="scoreBoardTotal.totalMainTube | numberColor">
+                        {{ scoreBoardTotal.totalMainTube }}
+                    </th>
+
+                </tr>
+                <tr>
+                    <th>本筒净输赢:</th>
+
+                    <th colspan="3" [style.color]="scoreBoardTotal.totalSmallTableAndMainTube | numberColor">
+                        {{ scoreBoardTotal.totalSmallTableAndMainTube }}
+                    </th>
+
+                </tr>
+            </thead>      
+
+        </table>
+        <table class="table table-bordered">
+            <thead>
+
+                <tr>
+                    <th>开4</th>
+                    <th>输赢</th>
+                    <th>落子</th>
+                    <th>小费</th>
+                    <th>统计</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of lstDataPerRound ; track item) {
+                <tr>
+                    <td>{{ item.tube }}</td>
+                    <td [style.color]="item.winOrLose | numberColor">{{ item.winOrLose }}</td>
+                    <td>{{ item.luozi }}</td>
+                    <td [style.color]="item.smallTable | numberColor">{{ item.smallTable }}</td>
+                    <td [style.color]="item.statistics | numberColor">{{ item.statistics }}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-3 mt-3">
+        <table class="table table-bordered">
+            @for (item of lstAdminCalculations$ | async; track item) {
+            <thead>
+                <tr>
+                    <th>{{item.inputByUser}}</th>
+                    <th>落子:{{item.luozi}}</th>
+                    <th>小费:{{item.smallTable}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1: <span [style.color]="item.one | numberColor">{{ item.one }}</span></td>
+                    <td>2: <span [style.color]="item.two | numberColor">{{ item.two }}</span></td>
+                    <td>3: <span [style.color]="item.three | numberColor">{{ item.three }}</span></td>
+                </tr>
+                <tr>
+                    <td>4: <span [style.color]="item.four | numberColor">{{ item.four }}</span></td>
+                    <td>5: <span [style.color]="item.five | numberColor">{{ item.five }}</span></td>
+                    <td>6: <span [style.color]="item.six | numberColor">{{ item.six }}</span></td>
+                </tr>
+            </tbody>
+            }
+        </table>
+    </div>
+</div>
