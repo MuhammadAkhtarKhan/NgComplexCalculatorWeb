@@ -84,7 +84,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (item of lstScoreBoardGrid ; track item) {
+                @for (item of lstScoreBoardGrid ; track item.inputByUser) {
                 <tr>
                     <td>{{ item.inputByUser }}</td>
                     <td [style.color]="item.mainTube | numberColor">{{ item.mainTube }}</td>
@@ -135,7 +135,7 @@
                 </tr>
             </thead>
             <tbody>
-                @for (item of lstDataPerRound ; track item) {
+                @for (item of lstDataPerRound ; track item.SortOrder) {
                 <tr>
                     <td>{{ item.tube }}</td>
                     <td [style.color]="item.winOrLose | numberColor">{{ item.winOrLose }}</td>
@@ -149,7 +149,7 @@
     </div>
     <div class="mb-3 mt-3">
         <table class="table table-bordered">
-            @for (item of lstAdminCalculations$ | async; track item) {
+            @for (item of calculations; track item.inputByUser) {
             <thead>
                 <tr>
                     <th>{{item.inputByUser}}</th>
