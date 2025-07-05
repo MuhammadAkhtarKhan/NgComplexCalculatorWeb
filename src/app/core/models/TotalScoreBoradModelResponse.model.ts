@@ -29,6 +29,7 @@ export class TotalScoreBoradModelResponse {
 }
 
 export class DataPerRoundSum {
+  SortOrder:number = 0;
   tube: string = "";
   luozi: number = 0;
   winOrLose: number = 0;
