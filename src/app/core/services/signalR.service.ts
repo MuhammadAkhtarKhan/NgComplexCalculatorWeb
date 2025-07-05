@@ -36,7 +36,7 @@ export class SignalRService {
 
       this.endThreadHubConnection
         .start()
-        .then(() => console.log('SignalR connection started'))
+        .then(() => console.log('SignalR EndThread connection started'))
         .catch(err => console.error('Error starting SignalR connection: ', err));
     }
     this.addListenerChatHub();
@@ -87,7 +87,7 @@ export class SignalRService {
 
       this.deleteLogoutUserDataHubConnection
         .start()
-        .then(() => console.log('SignalR SyncDataHub connection started'))
+        .then(() => console.log('SignalR DeleteLogout connection started'))
         .catch(err => console.error('Error starting SignalR SyncDataHub connection: ', err));
     }
     this.addListenerDeleteLogoutUserDataHub();
@@ -105,22 +105,22 @@ export class SignalRService {
   //#region  groupNoAndSelectOpen hub
 
   public startConnectionGroupNoAndOpenDataHub(): void {
-    if (!this.deleteLogoutUserDataHubConnection) {
-      this.deleteLogoutUserDataHubConnection = new signalR.HubConnectionBuilder()
+    if (!this.groupAndOpenSelectDataHubConnection) {
+      this.groupAndOpenSelectDataHubConnection = new signalR.HubConnectionBuilder()
         .withUrl(`${this.baseUrl}/groupAndOpenHub`) // Replace with your hub URL
         .build();
 
-      this.deleteLogoutUserDataHubConnection
+      this.groupAndOpenSelectDataHubConnection
         .start()
         .then(() => console.log('SignalR groupAndOpenSelect connection started'))
         .catch(err => console.error('Error starting SignalR SyncDataHub connection: ', err));
     }
-    this.addListenerDeleteLogoutUserDataHub();
+    this.addListenerGroupAndOpenSelectDataHub();
   }
 
   public addListenerGroupAndOpenSelectDataHub(): void {
-    this.groupAndOpenSelectDataHubConnection.on('ReceiveGroupNoAndOpen', (message: any) => {
-      this.notificationGroupAndOpenSelect.next(message);
+    this.groupAndOpenSelectDataHubConnection.on("ReceiveGroupNoAndOpen", (groupNo, openVal, isAdmin) => {
+      this.notificationGroupAndOpenSelect.next(isAdmin ? `Group No: ${groupNo}, Open Value: ${openVal}` : `Group No: ${groupNo}`);
     });
   }
 
