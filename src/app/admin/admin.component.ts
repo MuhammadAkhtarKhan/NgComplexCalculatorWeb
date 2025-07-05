@@ -93,6 +93,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.signalRService.startConnectionChatHub();
     this.signalRService.startConnectionSyncDataHub();
     this.signalRService.startConnectionDeleteLogoutUserDataHub();
+    this.signalRService.startConnectionGroupNoAndOpenDataHub();
    const endThreadHubsubscripton = this.signalRService.notificationEndThreadHub$.subscribe(msg => {
       if (msg) {
         this.getAdminData();
@@ -123,6 +124,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.getAdminData();
       }
     });
+
     this.subscriptions.add(endThreadHubsubscripton)
     this.subscriptions.add(syncDataHubsubscripton)
     this.subscriptions.add(deleteLogoutHubsubscripton)
@@ -140,27 +142,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.subscriptions.add(adminSubscription);
     
   }
-  // getDataTotalScoreBoardByGroupNoAndTipMode(groupNo: number, tipMode: number) {
-  //   // Cache the API result
-  //   this.adminData$ = this.adminService
-  //     .GetDataTotalScoreBoardByGroupNoAndTipMode(Number(groupNo), Number(tipMode))
-  //     .pipe(
-  //       startWith({
-  //         lstScoreBoardGrid: [],
-  //         scoreBoardTotal: this.defaultScoreBoardTotal
-  //       }),
-  //       shareReplay(1)
-  //     );
 
-  //   this.scoreBoardTotal$ = this.adminData$.pipe(
-  //     map(data => data.scoreBoardTotal ?? this.defaultScoreBoardTotal),
-  //     startWith(this.defaultScoreBoardTotal)
-  //   );
-
-  //   this.lstScoreBoardGrid$ = this.adminData$.pipe(
-  //     map(data => data.lstScoreBoardGrid ?? [])
-  //   );
-  // }
 
   lstDataPerRound:DataPerRoundSum[]=[]
   getDataPerRoundByGroupNoAndTipMode(groupNo: number, tipMode: number) {
@@ -171,11 +153,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       })
       this.subscriptions.add(sub);
   }
-  // getDataPerRoundByGroupNoAndTipMode(groupNo: number, tipMode: number) {
-  //   this.lstDataPerRoundSum$ = this.adminService
-  //     .GetDataPerRoundByGroupNoAndTipMode(Number(groupNo), Number(tipMode))
-  //     .pipe(map(data => data ?? []));
-  // }
+
   calculations: AdminCalculations[]=[];
   getAdminSummaryAndDataByGroupNoAndTipMode(groupNo: number, tipMode: number) {
    const subs= this.adminService
@@ -185,12 +163,6 @@ export class AdminComponent implements OnInit, OnDestroy {
       })
       this.subscriptions.add(subs)
   }
-
-  // getAdminSummaryAndDataByGroupNoAndTipMode(groupNo: number, tipMode: number) {
-  //   this.lstAdminCalculations$ = this.adminService
-  //     .GetAdminSummaryAndDataByGroupNoAndTipMode(Number(groupNo), Number(tipMode))
-  //     .pipe(map(data => data.calculations ?? []));
-  // }
 
     ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
